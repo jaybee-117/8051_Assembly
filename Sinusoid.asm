@@ -2,13 +2,16 @@ ORG 000H
 	CLR P0.7	; enable the DAC WR line
 
 	MOV DPTR, #LUT2 ; Move datapointer to the look-up table
+    MOV R2,#0       ;
 loop:
     CLR A           ; Clear the accumulator
 	MOVC A,@A+DPTR  ; Go to the next effective address
     MOV P1,A        ;
 	Inc DPTR        ;
-    CJNE A,#27DH,loop; jump back to loop
+    Inc R2          ;
+    CJNE R2,#62,loop; jump back to loop
     MOV DPTR, #LUT2 ;
+    MOV R2, #0      ;
     JMP loop        ;
 
 ORG 0200H ;125 points
